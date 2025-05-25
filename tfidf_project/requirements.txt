@@ -1,0 +1,10 @@
+asgiref==3.8.1
+Django==5.2.1
+django-environ==0.12.0
+gunicorn==23.0.0
+joblib==1.5.0
+numpy==2.2.6
+packaging==25.0
+scipy==1.15.3
+sqlparse==0.5.3
+threadpoolctl==3.6.0

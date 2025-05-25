@@ -1,0 +1,20 @@
+services:
+  django:
+    build: .
+    volumes:
+      - ./tfidf_project/media:/app/tfidf_project/media
+    expose:
+      - '8000'
+    environment:
+      - PYTHONPATH=/app/tfidf_project
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs/nginx.crt:/etc/ssl/certs/nginx.crt:ro
+      - ./certs/nginx.key:/etc/ssl/private/nginx.key:ro
+    depends_on:
+      - django

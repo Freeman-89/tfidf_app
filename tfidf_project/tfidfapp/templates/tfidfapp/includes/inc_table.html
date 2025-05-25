@@ -1,0 +1,29 @@
+<table class="table">
+      <thead>
+            <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Слово</th>
+                  <th scope="col">TF</th>
+                  <th scope="col">IDF</th>
+            </tr>
+      </thead>
+      <tbody>
+            {% for word, tf, idf in tfidf_page.object_list %}
+            <tr>
+                  <th scope="row">{{ forloop.counter0|add:tfidf_page.start_index }}</th>
+                  <td>{{ word }}</td>
+                  <td>{{ tf|floatformat:4 }}</td>
+                  <td>{{ idf|floatformat:4 }}</td>
+            </tr>
+            {% endfor %}
+      </tbody>
+</table>
+<div class="pagination">
+      {% if tfidf_page.has_previous %}
+        <a href="?page={{ tfidf_page.previous_page_number }}">« Назад</a>
+      {% endif %}
+      <span>Страница {{ tfidf_page.number }} из {{ tfidf_page.paginator.num_pages }}</span>
+      {% if tfidf_page.has_next %}
+        <a href="?page={{ tfidf_page.next_page_number }}">Вперёд »</a>
+      {% endif %}
+</div>

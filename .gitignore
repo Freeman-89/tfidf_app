@@ -1,0 +1,18 @@
+# Игнорируем виртуальные окружения
+.venv/
+env/
+.env
+
+# Игнорируем файлы Python-процессов
+*.pyc
+*.pyo
+__pycache__/
+
+# Игнорируем данные, логи, конфиденциальную информацию
+*.db
+*.log
+*.sqlite3
+credentials.json
+
+# JetBrains (PyCharm, IntelliJ)
+.idea/
