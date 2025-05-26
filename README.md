@@ -39,6 +39,10 @@ CSRF_TRUSTED_ORIGINS=
 _Разрешённые хосты (через запятую)_  
 ALLOWED_HOSTS=*
 
+### Сертификаты  
+Cоздайте сертификаты для nginx  
+``` mkdir -p certs && openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout certs/nginx.key -out certs/nginx.crt```
+
 Установка производится с помощю doker compose.  
 В директории с проектом нужно выполнить команду:  
 ```docker compose up -d``` 

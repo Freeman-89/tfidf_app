@@ -16,3 +16,4 @@ credentials.json
 
 # JetBrains (PyCharm, IntelliJ)
 .idea/
+certs/
