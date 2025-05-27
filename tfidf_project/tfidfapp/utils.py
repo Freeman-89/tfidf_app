@@ -38,15 +38,23 @@ class TfIdfCompute:
         return tf_dict
 
     def compute_idf(self) -> dict[str, float]:
-        document_count = WordsInDocument.objects.values('uuid_document_name').distinct().count()
+        document_count: int = WordsInDocument.objects.values('uuid_document_name').distinct().count()
+        word_df_qs = WordsInDocument.objects.values("word_id").annotate(
+            df=Count("uuid_document_name", distinct=True)
+        )
+
+        df_map = {row['word_id']: row['df'] for row in word_df_qs}
         idf_dict: Dict[str, float] = {}
-        for word_obj in Word.objects.all():
-            df: int = WordsInDocument.objects.filter(word=word_obj).values('uuid_document_name').distinct().count()
+        words_to_update: List[Word] = []
+
+        for word_obj in Word.objects.all().iterator():
+            df = df_map.get(word_obj.id, 0)
+            print(word_obj, df)
             idf_value: float = math.log((1 + document_count) / (1 + df)) + 1
             word_obj.idf = idf_value
-            word_obj.save()
+            words_to_update.append(word_obj)
             idf_dict[word_obj.text] = idf_value
-
+        Word.objects.bulk_update(words_to_update, ['idf'])
         return idf_dict
 
     def compute_tfidf(self) -> Tuple[Dict[str, float], Dict[str, float]]:
