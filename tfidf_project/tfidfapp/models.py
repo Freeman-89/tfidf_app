@@ -12,7 +12,7 @@ class Word(models.Model):
 class WordsInDocument(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     uuid_document_name = models.CharField(verbose_name='имя документа', max_length=64)
-    tf = models.FloatField(verbose_name='idf')
+    tf = models.FloatField(verbose_name='tf')
 
     def __str__(self):
         return f"{self.word} in {self.uuid_document_name}"

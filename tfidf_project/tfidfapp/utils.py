@@ -49,7 +49,6 @@ class TfIdfCompute:
 
         for word_obj in Word.objects.all().iterator():
             df = df_map.get(word_obj.id, 0)
-            print(word_obj, df)
             idf_value: float = math.log((1 + document_count) / (1 + df)) + 1
             word_obj.idf = idf_value
             words_to_update.append(word_obj)
